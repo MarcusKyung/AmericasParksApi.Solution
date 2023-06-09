@@ -45,7 +45,7 @@ namespace AmericasParksApi.Controllers.v1
 
     // GET: api/park/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Park>> GetReview(int id)
+    public async Task<ActionResult<Park>> GetPark(int id)
     {
       Park park = await _db.Parks.FindAsync(id);
 
@@ -55,6 +55,14 @@ namespace AmericasParksApi.Controllers.v1
       }
 
       return park;
+    }
+
+    [HttpGet("random")]
+    public async Task<ActionResult<Park>> GetRandomPark()
+    {
+      List<Park> parks = await _db.Parks.ToListAsync();
+      int random = new Random().Next(parks.Count);
+      return parks[random];
     }
   }
 }
