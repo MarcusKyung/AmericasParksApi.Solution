@@ -19,7 +19,7 @@ namespace AmericasParksApi.Controllers.v1
       _db = db;
     }
 
-    // GET api/reviews
+    // GET api/park
     [HttpGet]
     public async Task<List<Park>> Get(string name, string type, string location, int pageNumber, int pageSize)
     {
@@ -41,6 +41,20 @@ namespace AmericasParksApi.Controllers.v1
       }
 
       return await query.ToListAsync();
+    }
+
+    // GET: api/park/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Park>> GetReview(int id)
+    {
+      Park park = await _db.Parks.FindAsync(id);
+
+      if (park == null)
+      {
+        return NotFound();
+      }
+
+      return park;
     }
   }
 }
