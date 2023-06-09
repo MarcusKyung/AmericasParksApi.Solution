@@ -70,11 +70,64 @@ namespace AmericasParksApi.Controllers.v1
 
     // POST: api/reviews
     [HttpPost]
+    [EnableCors("Policy1")]
     public async Task<ActionResult<Park>> Post(Park park)
     {
       _db.Parks.Add(park);
       await _db.SaveChangesAsync();
       return CreatedAtAction(nameof(GetPark), new { id = park.ParkId }, park);
+    }
+
+    // PUT: api/Reviews/5
+    [HttpPut("{id}")]
+    [EnableCors("Policy1")]
+    public async Task<IActionResult> Put(int id, Park park)
+    {
+      if (id != park.ParkId)
+      {
+        return BadRequest();
+      }
+
+      _db.Parks.Update(park);
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!ReviewExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
+    }
+
+    private bool ReviewExists(int id)
+    {
+      return _db.Parks.Any(e => e.ParkId == id);
+    }
+
+    // DELETE: api/Reviews/5
+    [HttpDelete("{id}")]
+    [EnableCors("Policy1")]
+    public async Task<IActionResult>DeletePark(int id)
+    {
+      Park park = await _db.Parks.FindAsync(id);
+      if (park == null)
+      {
+        return NotFound();
+      }
+      _db.Parks.Remove(park);
+      await _db.SaveChangesAsync();
+
+      return NoContent();
     }
   }
 }
