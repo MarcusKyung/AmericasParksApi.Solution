@@ -26,16 +26,16 @@
 
 ## Description
 
-_TravelAPI is an API used to track reviews for travel destinations around the world. The starting database is seeded with data for 20 reviews but the API supports full CRUD functionality to store additional reviews and to edit and delete existing ones. Reviews are queryable by destination, city, country, user, and rating. TravelApi v2 also supports pagination and querying results by page number and page size. This project was built using C#, Entity Framework Core, and MySQL._
+_AmericasParksApi is an API used to track national and state parks. The starting database is seeded with data for all national parks as well as 6 national parks from Oregon and California.This API supports full CRUD functionality to store additional parks and to edit or delete existing ones. Parks are queryable by Name, Location, Type (national vs state), and date established. AmericasParksApi v2 also supports pagination and querying results by page number and page size. This project was built using C#, Entity Framework Core, and MySQL._
 
 ## Setup/Installation Requirements
 
 * _Download project repository from GH to your local machine._
 * _Clone this repository to your desktop._
-* _Open your shell (e.g., Terminal or GitBash) and navigate to this project's production directory at ```./TravelAPi.Solution/TravelApi/```._
+* _Open your shell (e.g., Terminal or GitBash) and navigate to this project's production directory at ```./AmericasParksApi.Solution/AmericasParksApi/```._
 
 #### To Configure and Access the Database:
-* _Within the production directory "TravelApi", create a new file called ``appsettings.json``._
+* _Within the production directory "AmericasParksApi", create a new file called ``appsettings.json``._
 * _Within ```appsettings.json```, put the following code, replacing the "uid" and "pwd" values (in the brackets below) with your own username and password for MySQL. Also replace the "database" value with your desired database name._
 ```
 {
@@ -47,10 +47,10 @@ _TravelAPI is an API used to track reviews for travel destinations around the wo
 * _Run the terminal command ```dotnet ef database update``` to create the initial MySQL database._
 
 #### To Run the API:
-* _Navigate to this project's production directory named "TravelApi"._
+* _Navigate to this project's production directory named "AmericasParksApi"._
 * _Run ```dotnet watch run``` in the command line to run the API from your local port. This will also open up Swagger UI in your browser. At this point, you can begin making API calls._
 * _To make a test a get request, click on the "Get" reviews route in the Swagger UI, then click the "try it out" button._
-* _Reference the endpoint urls, optional parameters, and example requests listed below. The TravelAPI supports Get, Post, Update, and Delete functionality._
+* _Reference the endpoint urls, optional parameters, and example requests listed below. The AmericasParksApi supports Get, Post, Update, and Delete functionality._
 
 ## Endpoints
 ```
@@ -71,10 +71,7 @@ Note: `{v1/v2}` indicates the version of the API you want to use. Version 2 cont
 | City        | String      |   Required   | Returns reviews with a matching City value           |
 | Address     | String      | Not Required | Returns reviews with a matching Address value        |
 | UserName    | String      |   Required   | Returns reviews with a matching UserName value       |
-| Rating      | Int         |   Required   | Returns reviews with a matching Rating value         |
 | Description | String      |   Required   | Returns reviews with a matching Description value    |
-| Date        | DateTime    | Not Required | Returns reviews with a matching Date value           |
-| byRating    | String      | Not Required | Value of "true" orders the returned list by descending rating |
 | pageNumber  | Int         | Not Required | Returns reviews from the specified page number       |
 | pageSize    | Int         | Not Required | Controls the amount of reviews returned on each page |
 
