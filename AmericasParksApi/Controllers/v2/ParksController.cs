@@ -22,13 +22,18 @@ namespace AmericasParksApi.Controllers.v2
     // GET api/park
     [HttpGet]
     [EnableCors("Policy1")]
-    public async Task<List<Park>> Get(string name, string type, string location, int pageNumber, int pageSize)
+    public async Task<List<Park>> Get(string name, string type, string location, string dateEstablished, int pageNumber, int pageSize)
     {
       IQueryable<Park> query = _db.Parks.AsQueryable();
 
       if (name != null)
       {
         query = query.Where(entry => entry.Name == name);
+      }
+
+      if (dateEstablished != null)
+      {
+        query = query.Where(entry => entry.DateEstablished == dateEstablished);
       }
 
       if (type != null)
