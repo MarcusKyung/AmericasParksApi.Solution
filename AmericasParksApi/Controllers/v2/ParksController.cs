@@ -68,7 +68,7 @@ namespace AmericasParksApi.Controllers.v2
       return parks[random];
     }
 
-    // POST: api/reviews
+    // POST: api/Parks
     [HttpPost]
     [EnableCors("Policy1")]
     public async Task<ActionResult<Park>> Post(Park park)
@@ -78,7 +78,7 @@ namespace AmericasParksApi.Controllers.v2
       return CreatedAtAction(nameof(GetPark), new { id = park.ParkId }, park);
     }
 
-    // PUT: api/Reviews/5
+    // PUT: api/Parks/5
     [HttpPut("{id}")]
     [EnableCors("Policy1")]
     public async Task<IActionResult> Put(int id, Park park)
@@ -96,7 +96,7 @@ namespace AmericasParksApi.Controllers.v2
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!ReviewExists(id))
+        if (!ParkExists(id))
         {
           return NotFound();
         }
@@ -109,12 +109,12 @@ namespace AmericasParksApi.Controllers.v2
       return NoContent();
     }
 
-    private bool ReviewExists(int id)
+    private bool ParkExists(int id)
     {
       return _db.Parks.Any(e => e.ParkId == id);
     }
 
-    // DELETE: api/Reviews/5
+    // DELETE: api/Parks/5
     [HttpDelete("{id}")]
     [EnableCors("Policy1")]
     public async Task<IActionResult>DeletePark(int id)
