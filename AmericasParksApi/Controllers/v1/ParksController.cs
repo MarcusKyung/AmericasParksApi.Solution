@@ -21,6 +21,7 @@ namespace AmericasParksApi.Controllers.v1
 
     // GET api/park
     [HttpGet]
+    [EnableCors("Policy1")]
     public async Task<List<Park>> Get(string name, string type, string location, int pageNumber, int pageSize)
     {
       IQueryable<Park> query = _db.Parks.AsQueryable();
@@ -45,6 +46,7 @@ namespace AmericasParksApi.Controllers.v1
 
     // GET: api/park/5
     [HttpGet("{id}")]
+    [EnableCors("Policy1")]
     public async Task<ActionResult<Park>> GetPark(int id)
     {
       Park park = await _db.Parks.FindAsync(id);
@@ -58,11 +60,21 @@ namespace AmericasParksApi.Controllers.v1
     }
 
     [HttpGet("random")]
+    [EnableCors("Policy1")]
     public async Task<ActionResult<Park>> GetRandomPark()
     {
       List<Park> parks = await _db.Parks.ToListAsync();
       int random = new Random().Next(parks.Count);
       return parks[random];
+    }
+
+    // POST: api/reviews
+    [HttpPost]
+    public async Task<ActionResult<Park>> Post(Park park)
+    {
+      _db.Parks.Add(park);
+      await _db.SaveChangesAsync();
+      return CreatedAtAction(nameof(GetPark), new { id = park.ParkId }, park);
     }
   }
 }
