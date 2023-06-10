@@ -46,6 +46,11 @@ namespace AmericasParksApi.Controllers.v2
         query = query.Where(entry => entry.Location == location);
       }
 
+      if (pageNumber > 0 && pageSize > 0)
+      {
+        query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize); 
+      }
+
       return await query.ToListAsync();
     }
 
